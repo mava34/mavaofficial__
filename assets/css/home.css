@@ -134,13 +134,11 @@
  * inherit tracks whichever radius .hero__media itself has at the time
  * (rounded square pre-pin, sharp full-bleed once pinned) automatically.
  *
- * Base rule (mobile-first): object-fit:cover crops the tall screenshot to a
- * static "top of the page" view filling the panel exactly. That's the
- * intentional, permanent mobile treatment (see the file this ships with —
- * assets/js/hero-shot.js never runs below the 861px breakpoint below, to
- * protect performance/battery) and also what briefly shows on desktop
- * before that same breakpoint's rule takes over, so there's never an
- * unstyled flash.
+ * object-fit:cover stays on at every breakpoint — the source is a single
+ * wide hero banner (2940×1542), not a tall full-page screenshot, so there's
+ * no extra height for assets/js/hero-shot.js to pan through. That script
+ * still runs but computes distance ≈ 0 (image height already matches the
+ * wrapper's) and no-ops, so it's left in place rather than removed.
  */
 .hero-shot {
   position: absolute;
@@ -155,24 +153,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
-}
-
-/*
- * Matches hero.js's own canPin breakpoint exactly (see that file) — a
- * different figure here would open a range where the hero is pinned but
- * this image is still in its mobile cover-crop mode, or vice versa. Switches
- * to a natural, width-driven height, clipped by .hero-shot's own
- * overflow:hidden; assets/js/hero-shot.js then optionally animates this
- * taller image's own y position within that clip. With no JS/GSAP, a failed
- * CDN load, or prefers-reduced-motion, it just sits at its default
- * (untransformed) position — the top of the screenshot, static.
- */
-@media (min-width: 861px) {
-  .hero-shot__img {
-    height: auto;
-    object-fit: unset;
-  }
+  object-position: center;
 }
 
 .hero__view-work {

@@ -123,13 +123,12 @@ body.page-home .site-nav__logo {
 
 .site-nav__burger span {
   display: block;
-  /* 1px previously — read as a near-invisible hairline on most screens.
-     2px is the actual fix; --color-text was already a light, non-grey
-     tone (#F4F2ED), so the earlier "too dark to see" read was a weight
-     problem, not a hue/color one. */
   height: 2px;
   border-radius: 1px;
-  background: var(--color-text);
+  /* Literal white, not var(--color-text) (#F4F2ED) — same visual color,
+     but explicit so there's no ambiguity this is meant to be unmissable
+     against the dark/transparent nav bar. */
+  background: #FFFFFF;
   transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
 }
 

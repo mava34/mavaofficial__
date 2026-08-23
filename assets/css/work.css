@@ -1,21 +1,24 @@
-/* Work page — sections built: intro (page-placeholder, base.css), project
-   grid. CTA still to be added. */
+/* Work page — sections built: project grid (no separate intro — the
+   Jensai card is the page's first content, see work.html). CTA still to
+   be added. */
 
+/* padding-top clears the fixed .site-nav (see layout.css) with no extra
+   space on top of that — the card sits right under the nav. It's sized
+   off vh below, not width, specifically so this whole section (nav,
+   image, name, descriptor) fits in one viewport with no scrolling. */
 .work-projects {
-  padding: 0 0 96px;
+  padding: calc(var(--nav-height) + 24px) 0 24px;
 }
 
 .work-projects__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 48px;
-  max-width: 420px;
 }
 
 @media (min-width: 700px) {
   .work-projects__grid {
     grid-template-columns: repeat(2, 1fr);
-    max-width: none;
   }
 }
 
@@ -23,9 +26,15 @@
   display: block;
 }
 
+/* height (not width) drives the box, with aspect-ratio deriving width from
+   it — the only way to cap this card's size against viewport *height*
+   (what "above the fold" actually limits) rather than the container's
+   width. object-fit/object-position below are untouched by this: same
+   4:5 crop, just scaled down. */
 .work-card__media {
   display: block;
   position: relative;
+  height: min(40vh, 340px);
   aspect-ratio: 4 / 5;
   border-radius: var(--radius-lg);
   overflow: hidden;

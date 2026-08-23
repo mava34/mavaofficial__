@@ -34,8 +34,10 @@ document.addEventListener('partials:loaded', () => {
   const saved = localStorage.getItem(MAVA_LANG_KEY) || 'en';
   setLang(saved);
 
-  document.getElementById('lang-toggle')?.addEventListener('click', () => {
-    const current = localStorage.getItem(MAVA_LANG_KEY) || 'en';
-    setLang(current === 'en' ? 'fi' : 'en');
+  document.querySelectorAll('.lang-toggle').forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const current = localStorage.getItem(MAVA_LANG_KEY) || 'en';
+      setLang(current === 'en' ? 'fi' : 'en');
+    });
   });
 });

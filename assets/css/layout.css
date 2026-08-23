@@ -112,6 +112,8 @@ body.page-home .site-nav__logo {
 
 .site-nav__burger {
   display: none;
+  position: relative;
+  z-index: 1;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
@@ -126,14 +128,74 @@ body.page-home .site-nav__logo {
   transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
 }
 
+.lang-toggle--mobile {
+  display: none;
+}
+
 @media (max-width: 860px) {
-  .site-nav__links,
   .site-nav__meta {
     display: none;
   }
 
   .site-nav__burger {
     display: flex;
+  }
+
+  /* .site-nav__links stays nested inside .site-nav__left in the DOM (so
+     desktop's logo+links grouping needs no markup split), but position:
+     absolute here lets it escape that box and dock as a full-bleed panel
+     under the fixed .site-nav bar instead — top:100% resolves against
+     .site-nav itself (the nearest positioned ancestor), not .site-nav__left. */
+  .site-nav__links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 12px var(--container-pad) 28px var(--nav-left-inset);
+    background: rgba(12, 12, 14, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+    /* visibility is delayed on the way out (not the way in) so the fade
+       finishes before the panel leaves the accessibility tree / tab order —
+       display:none would do that instantly and skip the animation. */
+    visibility: hidden;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.35s var(--ease-out), opacity 0.25s var(--ease-out), visibility 0s linear 0.35s;
+  }
+
+  .site-nav__links a {
+    font-size: 19px;
+    padding: 8px 0;
+  }
+
+  .site-nav.is-open .site-nav__links {
+    visibility: visible;
+    max-height: 420px;
+    opacity: 1;
+    transition: max-height 0.35s var(--ease-out), opacity 0.25s var(--ease-out), visibility 0s linear 0s;
+  }
+
+  .lang-toggle--mobile {
+    display: inline-flex;
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  .site-nav.is-open .site-nav__burger span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .site-nav.is-open .site-nav__burger span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .site-nav.is-open .site-nav__burger span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
   }
 }
 

@@ -6,10 +6,14 @@
         MAVA
       </a>
 
-      <nav class="site-nav__links" aria-label="Primary">
+      <nav class="site-nav__links" id="nav-links" aria-label="Primary">
         <a href="work.html" data-i18n="nav.work">Work</a>
         <a href="studio.html" data-i18n="nav.studio">Studio</a>
         <a href="contact.html" data-i18n="nav.contact">Contact</a>
+
+        <button class="lang-toggle lang-toggle--mobile" type="button" aria-label="Switch language">
+          <span data-lang="en" class="is-active">EN</span><span>/</span><span data-lang="fi">FI</span>
+        </button>
       </nav>
     </div>
 
@@ -23,7 +27,7 @@
       </div>
     </div>
 
-    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
       <span></span><span></span><span></span>
     </button>
   </div>

@@ -44,7 +44,14 @@
     "work": {
       "eyebrow": "Valitut työt",
       "title": "Työt",
-      "body": "Projektilista tulossa pian."
+      "body": "Projektilista tulossa pian.",
+      "viewProject": "Katso projekti",
+      "projects": {
+        "jensai": {
+          "name": "Jensai Skin & Wellness",
+          "descriptor": "Verkkosivujen suunnittelu ja toteutus premium-tason ihonhoito- ja kauneussalongille Espoossa."
+        }
+      }
     },
     "studio": {
       "labels": {

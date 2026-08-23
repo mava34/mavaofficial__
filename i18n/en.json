@@ -44,7 +44,14 @@
     "work": {
       "eyebrow": "Selected work",
       "title": "Work",
-      "body": "Project index is coming soon."
+      "body": "Project index is coming soon.",
+      "viewProject": "View project",
+      "projects": {
+        "jensai": {
+          "name": "Jensai Skin & Wellness",
+          "descriptor": "Website design & development for a premium skincare & beauty salon in Espoo."
+        }
+      }
     },
     "studio": {
       "labels": {

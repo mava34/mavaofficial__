@@ -1,1 +1,72 @@
-/* Work page — sections to be added: intro, project grid (jensai.fi + coming soon), CTA */
+/* Work page — sections built: intro (page-placeholder, base.css), project
+   grid. CTA still to be added. */
+
+.work-projects {
+  padding: 0 0 96px;
+}
+
+.work-projects__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  max-width: 420px;
+}
+
+@media (min-width: 700px) {
+  .work-projects__grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
+  }
+}
+
+.work-card {
+  display: block;
+}
+
+.work-card__media {
+  display: block;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  transition: border-color 0.3s var(--ease-out);
+}
+
+.work-card__media:hover {
+  border-color: var(--color-accent-light);
+}
+
+.work-card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.work-card__meta {
+  margin-top: 20px;
+}
+
+.work-card__name {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.work-card__descriptor {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  max-width: 36ch;
+  margin-bottom: 12px;
+}
+
+.work-card__link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+}

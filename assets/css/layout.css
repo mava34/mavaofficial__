@@ -155,9 +155,11 @@ body.page-home .site-nav__logo {
     align-items: flex-start;
     gap: 4px;
     padding: 12px var(--container-pad) 28px var(--nav-left-inset);
-    background: rgba(12, 12, 14, 0.98);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--color-border);
+    /* --color-text (#F4F2ED) doubles as this site's "paper" tone — the only
+       light surface in an otherwise all-dark palette — so the open panel
+       reads as a deliberate light card, not a washed-out dark one. */
+    background: var(--color-text);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
     /* visibility is delayed on the way out (not the way in) so the fade
        finishes before the panel leaves the accessibility tree / tab order —
        display:none would do that instantly and skip the animation. */
@@ -171,6 +173,12 @@ body.page-home .site-nav__logo {
   .site-nav__links a {
     font-size: 19px;
     padding: 8px 0;
+    color: var(--color-bg);
+  }
+
+  .site-nav__links a:hover,
+  .site-nav__links a:focus-visible {
+    color: var(--color-accent);
   }
 
   .site-nav.is-open .site-nav__links {
@@ -184,6 +192,11 @@ body.page-home .site-nav__logo {
     display: inline-flex;
     margin-top: 10px;
     font-size: 15px;
+    color: rgba(12, 12, 14, 0.55);
+  }
+
+  .lang-toggle--mobile span.is-active {
+    color: var(--color-bg);
   }
 
   .site-nav.is-open .site-nav__burger span:nth-child(1) {

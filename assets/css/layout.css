@@ -171,6 +171,12 @@ body.page-home .site-nav__logo {
   .site-nav__links a {
     font-size: 19px;
     padding: 8px 0;
+    color: var(--color-text);
+  }
+
+  .site-nav__links a:hover,
+  .site-nav__links a:focus-visible {
+    color: var(--color-accent-light);
   }
 
   .site-nav.is-open .site-nav__links {
@@ -184,6 +190,11 @@ body.page-home .site-nav__logo {
     display: inline-flex;
     margin-top: 10px;
     font-size: 15px;
+    color: rgba(244, 242, 237, 0.55);
+  }
+
+  .lang-toggle--mobile span.is-active {
+    color: var(--color-text);
   }
 
   .site-nav.is-open .site-nav__burger span:nth-child(1) {

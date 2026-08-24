@@ -19,10 +19,91 @@
   <div data-include="partials/nav.html"></div>
 
   <main>
-    <section class="page-placeholder container" data-animate>
-      <span class="eyebrow" data-i18n="pages.contact.eyebrow">Get in touch</span>
-      <h1 data-i18n="pages.contact.title">Contact</h1>
-      <p data-i18n="pages.contact.body">Contact page content is coming soon.</p>
+    <section class="contact-hero container" data-animate>
+      <span class="eyebrow" data-i18n="pages.contact.eyebrow">Contact</span>
+
+      <div class="contact-row contact-email">
+        <a class="contact-row__link" href="mailto:mavastudiosinfo@gmail.com">
+          <svg class="contact-row__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+          </svg>
+          <span class="contact-row__text">mavastudiosinfo@gmail.com</span>
+        </a>
+        <button class="contact-row__copy" type="button" data-copy-value="mavastudiosinfo@gmail.com" aria-label="Copy email address">
+          <svg class="contact-row__copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+          </svg>
+          <svg class="contact-row__copy-icon contact-row__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+          <span class="contact-row__copy-label">
+            <span class="contact-row__copy-label-text contact-row__copy-label-text--default" data-i18n="pages.contact.copyLabel">Copy</span>
+            <span class="contact-row__copy-label-text contact-row__copy-label-text--copied" data-i18n="pages.contact.copiedLabel">Copied!</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="contact-people">
+        <article class="contact-card">
+          <svg class="contact-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <h3 class="contact-card__name">Valtteri Melén</h3>
+          <div class="contact-card__phone-row">
+            <a class="contact-card__phone" href="tel:+358440411518">044 041 1518</a>
+            <button class="contact-row__copy" type="button" data-copy-value="044 041 1518" aria-label="Copy Valtteri Melén's phone number">
+              <svg class="contact-row__copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+              </svg>
+              <svg class="contact-row__copy-icon contact-row__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              <span class="contact-row__copy-label">
+                <span class="contact-row__copy-label-text contact-row__copy-label-text--default" data-i18n="pages.contact.copyLabel">Copy</span>
+                <span class="contact-row__copy-label-text contact-row__copy-label-text--copied" data-i18n="pages.contact.copiedLabel">Copied!</span>
+              </span>
+            </button>
+          </div>
+        </article>
+
+        <article class="contact-card">
+          <svg class="contact-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <h3 class="contact-card__name">Max Schroderus</h3>
+          <div class="contact-card__phone-row">
+            <a class="contact-card__phone" href="tel:+358442631350">044 263 1350</a>
+            <button class="contact-row__copy" type="button" data-copy-value="044 263 1350" aria-label="Copy Max Schroderus's phone number">
+              <svg class="contact-row__copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+              </svg>
+              <svg class="contact-row__copy-icon contact-row__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              <span class="contact-row__copy-label">
+                <span class="contact-row__copy-label-text contact-row__copy-label-text--default" data-i18n="pages.contact.copyLabel">Copy</span>
+                <span class="contact-row__copy-label-text contact-row__copy-label-text--copied" data-i18n="pages.contact.copiedLabel">Copied!</span>
+              </span>
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <div class="contact-social">
+        <svg class="contact-social__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        <span data-i18n="pages.contact.instagramIntro">You can also reach us on Instagram</span>
+        <a class="contact-social__link" href="https://www.instagram.com/mavawebs/" target="_blank" rel="noopener">@mavawebs</a>
+      </div>
+
+      <p class="visually-hidden" data-copy-status role="status" aria-live="polite"></p>
     </section>
   </main>
 
@@ -38,5 +119,6 @@
   <script src="assets/js/lang-toggle.js"></script>
   <script src="assets/js/lenis-init.js"></script>
   <script src="assets/js/animations.js"></script>
+  <script src="assets/js/contact-copy.js"></script>
 </body>
 </html>

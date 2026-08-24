@@ -157,9 +157,12 @@
       }
     },
     "contact": {
-      "eyebrow": "Ota yhteyttä",
+      "eyebrow": "Yhteystiedot",
       "title": "Yhteystiedot",
-      "body": "Yhteystietosivun sisältö tulossa pian."
+      "body": "Yhteystietosivun sisältö tulossa pian.",
+      "copyLabel": "Kopioi",
+      "copiedLabel": "Kopioitu!",
+      "instagramIntro": "Voit myös ottaa meihin yhteyttä Instagramissa"
     }
   }
 }

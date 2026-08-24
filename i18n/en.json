@@ -157,9 +157,12 @@
       }
     },
     "contact": {
-      "eyebrow": "Get in touch",
+      "eyebrow": "Contact",
       "title": "Contact",
-      "body": "Contact page content is coming soon."
+      "body": "Contact page content is coming soon.",
+      "copyLabel": "Copy",
+      "copiedLabel": "Copied!",
+      "instagramIntro": "You can also reach us on Instagram"
     }
   }
 }

@@ -43,23 +43,6 @@
   text-box: trim-both cap alphabetic;
 }
 
-/*
- * Pinned mode only: stretches the letters taller without widening them.
- * transform-origin:left top keeps the already-aligned top-left corner fixed,
- * so the extra height grows downward only — width/gap-to-panel are
- * untouched (scaleY doesn't affect the box's layout width at all).
- * Transforms paint the border-box larger but never reserve layout space for
- * it, so margin-bottom (not padding — padding is inside the border-box and
- * gets scaled right along with the content, so it can never catch up)
- * pushes the next flex sibling down by the ~35% of height the scale added.
- * Ungated fallback rule above (no transform) covers mobile/reduced-motion.
- */
-.hero.hero--pinned .hero__wordmark {
-  transform: scaleY(1.35);
-  transform-origin: left top;
-  margin-bottom: 0.4em;
-}
-
 .hero__tagline {
   font-family: var(--font-body);
   font-size: 12px;
@@ -80,7 +63,6 @@
 }
 
 .hero__index {
-  display: none;
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 600;
@@ -90,20 +72,32 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Carousel viewport: one slide's worth of width/height showing at a time,
+   .hero__track (flex row, one .hero__project per 100%-wide slide) slides
+   horizontally inside it via transform — see assets/js/hero-carousel.js. */
 .hero__media-stack {
   position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
 }
 
-.hero__project + .hero__project {
-  margin-top: 40px;
+.hero__track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.hero__project {
+  flex: 0 0 100%;
+  min-width: 0;
+  width: 100%;
 }
 
 .hero__media {
   position: relative;
   aspect-ratio: 1 / 1;
-  border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--color-border);
   background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-raised) 65%, rgba(0, 53, 128, 0.28) 100%);
   display: flex;
   align-items: center;
@@ -123,28 +117,10 @@
   color: var(--color-text-muted);
 }
 
-/*
- * Project 01 (Jensai) real media only — projects 02/03 keep their plain
- * gradient .hero__media--soon placeholder, untouched. Placed in the DOM
- * between .hero__media-tag and .hero__view-work (see index.html), so plain
- * DOM-order stacking already covers the now-redundant placeholder tag while
- * leaving the button on top — no z-index needed for that. hero.js moves the
- * whole .hero__media element as a unit when it pins (see hero.js), so this
- * markup/CSS doesn't need a separate pinned-mode variant; border-radius:
- * inherit tracks whichever radius .hero__media itself has at the time
- * (rounded square pre-pin, sharp full-bleed once pinned) automatically.
- *
- * object-fit:cover stays on at every breakpoint — the source is a single
- * wide hero banner (2940×1542), not a tall full-page screenshot, so there's
- * no extra height for assets/js/hero-shot.js to pan through. That script
- * still runs but computes distance ≈ 0 (image height already matches the
- * wrapper's) and no-ops, so it's left in place rather than removed.
- */
 .hero-shot {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  border-radius: inherit;
   background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-raised) 65%, rgba(0, 53, 128, 0.28) 100%);
 }
 
@@ -206,88 +182,65 @@
 }
 
 /*
- * Pinned desktop mode only: hero.js moves each .hero__media and
- * .hero__project-meta out of their .hero__project article and into these two
- * dedicated stacks, so the panel can mask/slide independently of the text
- * crossfade over it. The panel itself is full-bleed (see .hero--pinned
- * .hero__right below); this just fills whatever bounds that establishes.
+ * Desktop (≥861px): reproduces the old hero--pinned static layout exactly
+ * (full-bleed panel, text-over-image overlay, absolute wordmark/index) —
+ * previously only reached via JS (hero.js) confirming GSAP + motion allowed
+ * + a scroll pin. That's gone; this is now the plain, unconditional desktop
+ * CSS, and assets/js/hero-carousel.js drives which slide shows via
+ * .hero__track's transform instead of a scroll-scrubbed timeline. Mobile
+ * (the rules above this block) is untouched: square card, meta text in
+ * normal flow below it, no overlay.
  */
-.hero__media-viewport {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: 0;
-  border: 1px solid var(--color-border);
-  display: grid;
-}
-
-.hero__media-viewport .hero__media {
-  grid-area: 1 / 1;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: unset;
-  border: 0;
-  border-radius: 0;
-}
-
-/* Dark gradient behind the overlaid name/descriptor so they stay readable
-   once real photos/video replace the placeholder gradient. Stops short of
-   the view-work button's corner (matches .hero__meta-viewport's right
-   inset) so it doesn't dull the button sitting on bare media. */
-.hero__scrim {
-  position: absolute;
-  left: 0;
-  right: 140px;
-  bottom: 0;
-  height: 50%;
-  background: linear-gradient(to top, rgba(12, 12, 14, 0.75) 0%, rgba(12, 12, 14, 0) 100%);
-  pointer-events: none;
-}
-
-.hero__meta-viewport {
-  position: absolute;
-  left: 24px;
-  right: 140px;
-  bottom: 24px;
-  z-index: 2;
-  display: grid;
-}
-
-.hero__meta-viewport .hero__project-meta {
-  grid-area: 1 / 1;
-  margin-top: 0;
-}
-
 @media (min-width: 861px) {
   .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     padding-bottom: 0;
+    --hero-container-offset: max(0px, calc((100vw - var(--container-max)) / 2));
+    --hero-content-w: calc(min(100vw, var(--container-max)) - 2 * var(--container-pad));
+    --hero-left-col-w: calc(var(--hero-content-w) * 0.32);
+    --hero-panel-left: calc(var(--hero-container-offset) + var(--container-pad) + var(--hero-left-col-w) + 48px);
+    --hero-wordmark-inset: calc(var(--hero-container-offset) + var(--nav-left-inset));
+    --hero-wordmark-gap: 12px;
+    --hero-panel-top: var(--nav-height);
   }
 
   .hero__inner {
     flex-direction: row;
-    /* no align-items override: default 'stretch' lets .hero__left fill the
-       full row height so its top group / intro can split to top and bottom */
   }
 
+  /* Matches the size the old hero--pinned scaleY transform gave the
+     wordmark — unconditional now instead of JS/GSAP-gated. */
+  .hero__wordmark {
+    transform: scaleY(1.35);
+    transform-origin: left top;
+    margin-bottom: 0.4em;
+  }
+
+  /* Escapes .hero__inner's flex row (and its max-width/padding) entirely —
+     positioned relative to .hero itself, which spans the true viewport
+     width, so the panel below can run edge-to-edge. */
   .hero__left {
-    flex: 0 0 32%;
+    position: absolute;
+    top: calc(var(--nav-height) + 12px);
+    left: var(--hero-wordmark-inset);
+    width: calc(var(--hero-panel-left) - var(--hero-wordmark-inset) - var(--hero-wordmark-gap));
+    height: calc(100vh - var(--nav-height) - 8px);
   }
 
   .hero__right {
-    flex: 1;
+    position: absolute;
+    top: var(--hero-panel-top);
+    left: var(--hero-panel-left);
+    right: 0;
+    height: calc(100vh - var(--hero-panel-top));
   }
 
+  /* Absolute in both the old pinned AND non-pinned desktop layouts (see
+     original comment) — normal flow would push the panel down by its own
+     line-height, breaking the top-alignment with the wordmark. */
   .hero__index {
-    /* Absolute even in the un-pinned fallback (not just .hero--pinned): in
-       normal flow this sat above .hero__media-stack, pushing the media
-       square down by its own height + margin and breaking the top alignment
-       with the wordmark on the left. Overlaying it removes that stacked
-       space so .hero__right's content starts flush with .hero__left's,
-       same treatment already used once pinning is active. */
-    display: block;
     position: absolute;
     top: 24px;
     left: 24px;
@@ -295,85 +248,53 @@
     z-index: 2;
   }
 
+  .hero__media-stack {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    border: 1px solid var(--color-border);
+  }
+
+  .hero__track {
+    height: 100%;
+  }
+
+  .hero__project {
+    position: relative;
+  }
+
+  .hero__media {
+    aspect-ratio: unset;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Scrim behind the bottom-left text overlay, sized to clear the
+     view-work circle on the right (140px ≈ its 96px + margins). A
+     pseudo-element instead of a separate div, same as the plain-color
+     .hero__media--soon placeholders don't need one either. */
+  .hero__media::after {
+    content: '';
+    position: absolute;
+    inset: auto 140px 0 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(12, 12, 14, 0.75) 0%, rgba(12, 12, 14, 0) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero__project-meta {
+    position: absolute;
+    left: 24px;
+    right: 140px;
+    bottom: 24px;
+    margin-top: 0;
+    z-index: 2;
+  }
+
   .hero__view-work {
     width: 96px;
     height: 96px;
+    z-index: 2;
   }
-}
-
-/*
- * Pinned mode only (JS-added class, desktop + GSAP + motion allowed). Takes
- * .hero__right out of the flex row entirely and gives it viewport-relative
- * bounds: full-bleed to the true viewport right edge (escaping
- * --container-max/--container-pad, not just the row's flex remainder),
- * nearly full viewport height, flush under the nav. --hero-panel-left
- * reproduces the exact left edge .hero__right had as a flex:1 sibling of a
- * flex:0 0 32% .hero__left (verified to match), so the ~48px gap to the text
- * column is unchanged even though positioning is now absolute.
- * .hero__left gets the same explicit height directly (rather than via
- * align-items:stretch against a sibling that no longer participates in
- * flex layout) so its wordmark-top / intro-bottom split still holds.
- * The non-pinned rules above (mobile stack, and this same media query's
- * flex-based .hero__right) are untouched, so the reduced-motion/no-GSAP
- * fallback keeps its original flex-row layout.
- */
-.hero.hero--pinned {
-  --hero-container-offset: max(0px, calc((100vw - var(--container-max)) / 2));
-  --hero-content-w: calc(min(100vw, var(--container-max)) - 2 * var(--container-pad));
-  --hero-left-col-w: calc(var(--hero-content-w) * 0.32);
-  --hero-panel-left: calc(var(--hero-container-offset) + var(--container-pad) + var(--hero-left-col-w) + 48px);
-  /* --nav-left-inset (shared token) is also what .site-nav__inner uses for
-     its own left padding, so this lines up exactly with the nav links */
-  --hero-wordmark-inset: calc(var(--hero-container-offset) + var(--nav-left-inset));
-  --hero-wordmark-gap: 12px;
-  --hero-panel-top: var(--nav-height);
-  --hero-panel-bottom-gap: 0px;
-}
-
-/*
- * Wordmark column: pulled left to the same edge the nav links sit on
- * (--hero-wordmark-inset, shared --nav-left-inset token with
- * .site-nav__inner's own left padding) instead of the old
- * --container-pad-based inset, and widened to span almost to the panel's
- * (unchanged) left edge, minus --hero-wordmark-gap — independent of the
- * panel's own left-position formula above, just consuming it. top matches
- * the panel's own top exactly (both var(--nav-height) + 12px) so the
- * cap-height-trimmed wordmark's visual top and the panel's top line up on
- * the same horizontal level, with a small breathing gap under the nav.
- * height is unchanged from before, so it now lands ~12px past the panel's
- * bottom — harmless, .hero just grows ~12px past 100vh to fit it, nothing
- * is clipped. Fallback (mobile/reduced-motion) keeps the un-gated flex rule
- * above (flex: 0 0 32%, standard container padding, line-box-top position)
- * untouched.
- */
-.hero.hero--pinned .hero__left {
-  position: absolute;
-  top: calc(var(--nav-height) + 12px);
-  left: var(--hero-wordmark-inset);
-  width: calc(var(--hero-panel-left) - var(--hero-wordmark-inset) - var(--hero-wordmark-gap));
-  height: calc(100vh - var(--nav-height) - 8px);
-}
-
-/*
- * Panel height is derived from its own top (viewportHeight - panelTop -
- * bottomGap) rather than reusing .hero__left's height formula, so its
- * bottom edge lands a clean --hero-panel-bottom-gap above the viewport
- * bottom instead of overflowing past 100vh into whatever follows the hero
- * (previously calc(100vh - nav-height - 8px) put the bottom ~4px below the
- * viewport). All the panel's internal overlays (.hero__index top-left,
- * .hero__meta-viewport/.hero__view-work bottom-left/bottom-right) are
- * inset from .hero__right's own edges, so they track this new, shorter
- * height automatically — nothing else needs to change.
- */
-.hero.hero--pinned .hero__right {
-  position: absolute;
-  top: var(--hero-panel-top);
-  left: var(--hero-panel-left);
-  right: 0;
-  height: calc(100vh - var(--hero-panel-top) - var(--hero-panel-bottom-gap));
-}
-
-.hero.hero--pinned .hero__media-stack {
-  position: absolute;
-  inset: 0;
 }

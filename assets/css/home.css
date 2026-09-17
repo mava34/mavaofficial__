@@ -124,12 +124,26 @@
   background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-raised) 65%, rgba(0, 53, 128, 0.28) 100%);
 }
 
+/* Tatuata slide only: the gradient above reads as a visible bar behind a
+   contain-fit image's letterboxing, since it's lighter/tinted vs. the
+   page's actual background. Flat --color-bg blends the letterbox into the
+   surrounding page instead. */
+.hero-shot--tatuata {
+  background: var(--color-bg);
+}
+
 .hero-shot__img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+/* Tatuata slide: show the whole screenshot (including the TATUATA wordmark)
+   uncropped, unlike the cover fit every other slide uses. */
+.hero-shot__img--tatuata {
+  object-fit: contain;
 }
 
 .hero__view-work {

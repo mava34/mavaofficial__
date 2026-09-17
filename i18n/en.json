@@ -28,9 +28,9 @@
           "descriptor": "Jensai got a modern, polished website and online store — and customers now find their services more easily."
         },
         {
-          "tag": "Coming soon",
-          "name": "Coming soon",
-          "descriptor": "A new MAVA project is currently in development."
+          "tag": "Tatuata",
+          "name": "Tatuata",
+          "descriptor": "Tatuata got a bold, modern site that puts its artists and gallery front and centre — making it easy for clients to explore work and book."
         },
         {
           "tag": "Coming soon",
@@ -50,6 +50,10 @@
         "jensai": {
           "name": "Jensai Skin & Wellness",
           "descriptor": "Website design & development for a premium skincare & beauty salon in Espoo."
+        },
+        "tatuata": {
+          "name": "Tatuata",
+          "descriptor": "Website design & development for one of Helsinki's finest tattoo studios."
         }
       }
     },

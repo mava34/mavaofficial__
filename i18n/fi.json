@@ -28,9 +28,9 @@
           "descriptor": "Jensai sai modernit, näyttävät verkkosivut ja verkkokaupan — ja asiakkaat löytävät nyt palvelut entistä helpommin."
         },
         {
-          "tag": "Tulossa pian",
-          "name": "Tulossa pian",
-          "descriptor": "Uusi MAVA-projekti on tällä hetkellä työn alla."
+          "tag": "Tatuata",
+          "name": "Tatuata",
+          "descriptor": "Tatuata sai näyttävän, modernin sivuston joka nostaa artistit ja gallerian keskiöön — asiakkaan on helppo selata töitä ja varata aika."
         },
         {
           "tag": "Tulossa pian",
@@ -50,6 +50,10 @@
         "jensai": {
           "name": "Jensai Skin & Wellness",
           "descriptor": "Verkkosivujen suunnittelu ja toteutus premium-tason ihonhoito- ja kauneussalongille Espoossa."
+        },
+        "tatuata": {
+          "name": "Tatuata",
+          "descriptor": "Verkkosivujen suunnittelu ja toteutus Helsingin ykkösluokan tatuointistudiolle."
         }
       }
     },
